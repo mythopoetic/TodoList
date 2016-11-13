@@ -12,7 +12,7 @@ public class TodoList {
     private static void showAll(ArrayList<String> todoList) {
         if (todoList.isEmpty()) {
             System.out.println();
-            System.out.println("List empty");
+            System.out.println("List is empty");
             System.out.println();
         } else {
             int index = 1;
@@ -31,7 +31,7 @@ public class TodoList {
     }
 
     private static ArrayList<String> removeEntry(ArrayList<String> todoList, int index) {
-        if (index > todoList.size()) {
+        if (index > todoList.size() || index <= 0) {
             System.out.println("There is no entry number " + index + " in the list");
         } else {
             todoList.remove(index - 1);
@@ -75,12 +75,16 @@ public class TodoList {
                 case 3:
                     System.out.println();
                     int renum = 0;
+                    if (todoList.isEmpty()) {
+                        System.out.println("List is empty, no entries to remove");
+                        System.out.println();
+                        break;
+                    }
                     System.out.println("Type '-1' to return to menu");
-                    while (renum != -1) {
+                    while (!todoList.isEmpty()) {
                         System.out.println("Current list:");
                         showAll(todoList);
                         System.out.print("Type the number of the entry you wish to remove: ");
-
                         renum = in.nextInt();
                         in.nextLine();
                         if (renum == -1) {
