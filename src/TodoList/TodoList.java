@@ -1,6 +1,7 @@
 package TodoList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -39,6 +40,20 @@ public class TodoList {
         return todoList;
     }
 
+    private static ArrayList<String> rotateRight(ArrayList<String> todoList, int k) {
+        int size = todoList.size();
+        String[] listArray = todoList.toArray(new String[0]);
+        String[] rotatedListArray = new String[size];
+
+        for (int i = 0; i < size; i++) {
+            rotatedListArray[(i + k) % size] = listArray[i];
+        }
+        
+        ArrayList<String> rotatedList = new ArrayList<>(Arrays.asList(rotatedListArray));
+
+        return rotatedList;
+    }
+
     public static void main(String[] args) {
 
         ArrayList<String> todoList = new ArrayList<>();
@@ -50,6 +65,9 @@ public class TodoList {
             System.out.println("Press 2 to add a new entry");
             System.out.println("Press 3 to remove an entry");
             System.out.println("Press 4 to exit");
+            if (todoList.size() >= 2) {
+                System.out.println("Press 5 to rotate list");
+            }
             System.out.print("Input: ");
             int num = in.nextInt();
             in.nextLine();
@@ -96,6 +114,23 @@ public class TodoList {
                     break;
                 case 4:
                     break scanner;
+                case 5:
+                    if (todoList.size() >= 2) {
+                        System.out.println("Current list:");
+                        showAll(todoList);
+                        System.out.println("How many positions do you want to rotate?: ");
+                        int k = in.nextInt();
+                        in.nextLine();
+                        todoList = rotateRight(todoList, k);
+                        System.out.println("Updated list:");
+                        showAll(todoList);
+                        break;
+                    } else {
+                        System.out.println();
+                        System.out.println("Invalid input");
+                        System.out.println();
+                        break;
+                    }
                 default:
                     System.out.println();
                     System.out.println("Invalid input");
